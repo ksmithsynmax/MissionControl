@@ -1,12 +1,4 @@
-import { Paper, Text, Stack, Group, Badge, Box } from '@mantine/core';
-
-const tagColor = {
-  Suggested: '#006CD7',
-  Proactive: '#FFA500',
-  'Due Today': '#F75349',
-  'New Intel': '#00A3E3',
-  Backlog: '#888F9E',
-};
+import { Paper, Text, Stack, Group, Box } from '@mantine/core';
 
 export default function Recommendations({ recommendations = [] }) {
   return (
@@ -19,7 +11,7 @@ export default function Recommendations({ recommendations = [] }) {
         flex: 1,
       }}
     >
-      <Text size="sm" fw={600} c="white" mb="sm">
+      <Text size="16px" fw={600} c="white" mb="sm">
         Recommended For You
       </Text>
 
@@ -31,7 +23,7 @@ export default function Recommendations({ recommendations = [] }) {
             style={{
               background: '#181926',
               borderRadius: 6,
-              border: '1px solid #393C56',
+              border: '1px solid transparent',
               cursor: 'pointer',
               transition: 'border-color 0.2s, background-color 0.2s',
             }}
@@ -40,33 +32,17 @@ export default function Recommendations({ recommendations = [] }) {
               e.currentTarget.style.backgroundColor = 'rgba(0, 108, 215, 0.12)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#393C56';
+              e.currentTarget.style.borderColor = 'transparent';
               e.currentTarget.style.backgroundColor = '#181926';
             }}
           >
-            <Group justify="space-between" mb={4}>
-              <Group gap={6}>
-                <Text size="sm" fw={600} c="white">
-                  {rec.title}
-                </Text>
-              </Group>
-              <Badge
-                size="xs"
-                variant="light"
-                styles={{
-                  root: {
-                    background: `${tagColor[rec.tag]}20`,
-                    border: `1px solid ${tagColor[rec.tag]}40`,
-                    textTransform: 'none',
-                  },
-                  label: { color: tagColor[rec.tag] },
-                }}
-              >
-                {rec.tag}
-              </Badge>
+            <Group mb={4}>
+              <Text size="12px" fw={600} c="white">
+                {rec.title}
+              </Text>
             </Group>
 
-            <Text size="xs" c="#888F9E" lineClamp={2} style={{ lineHeight: 1.45 }}>
+            <Text size="10px" c="#888F9E" lineClamp={2} style={{ lineHeight: 1.45 }}>
               {rec.reason}
             </Text>
           </Box>

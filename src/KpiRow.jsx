@@ -44,11 +44,11 @@ function getTrend(points) {
     if (current === 0) {
       return { arrow: '—', pctText: '0%', color: '#888F9E' };
     }
-    return { arrow: '↑', pctText: '100%', color: '#5FD771' };
+    return { arrow: '↑', pctText: '100%', color: '#00EB6C' };
   }
 
   const pct = Math.round((Math.abs(delta) / baseline) * 100);
-  if (delta > 0) return { arrow: '↑', pctText: `${pct}%`, color: '#5FD771' };
+  if (delta > 0) return { arrow: '↑', pctText: `${pct}%`, color: '#00EB6C' };
   if (delta < 0) return { arrow: '↓', pctText: `${pct}%`, color: '#F75349' };
   return { arrow: '—', pctText: '0%', color: '#888F9E' };
 }
@@ -62,25 +62,25 @@ export default function KpiRow({ vessels = [], timelineEvents = [] }) {
     {
       label: 'Vessels Tracked',
       value: vessels.length,
-      sparkColor: '#00A3E3',
+      sparkColor: '#00EB6C',
       points: [10, 11, 11, 12, 12, 13, 12, 13, 14, vessels.length],
     },
     {
       label: 'Dark Vessels',
       value: darkVessels,
-      sparkColor: '#F75349',
+      sparkColor: '#FFA500',
       points: [1, 1, 2, 2, 3, 2, 3, 2, 2, darkVessels],
     },
     {
       label: 'Active STS',
       value: activeSts,
-      sparkColor: '#FFA500',
+      sparkColor: '#00EB6C',
       points: [0, 1, 1, 2, 1, 2, 1, 2, 1, activeSts],
     },
     {
       label: 'Active Alerts',
       value: activeAlerts,
-      sparkColor: '#B07DFF',
+      sparkColor: '#F75349',
       points: [2, 3, 3, 4, 3, 4, 5, 4, 5, activeAlerts],
     },
   ];

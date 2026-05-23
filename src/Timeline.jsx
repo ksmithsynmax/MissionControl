@@ -1,9 +1,26 @@
-import { Paper, Text, Stack, Group, Box, ScrollArea } from '@mantine/core';
+import { Paper, Text, Stack, Group, Box } from '@mantine/core';
+import LightIcon from './assets/icons/LightIcon.svg';
+import DarkIcon from './assets/icons/DarkIcon.svg';
+import ZombieShipIcon from './assets/icons/ZombieShip.svg';
+import UnattributedIcon from './assets/icons/UnattributedIcon.svg';
+import SpoofingPositionIcon from './assets/icons/SpoofingPositionIcon.svg';
+import StsIcon from './assets/icons/STSIcon.svg';
+import AisStsIcon from './assets/icons/STSAISAISIcon.svg';
 
 const severityColor = {
   critical: '#F75349',
   warning: '#FFA500',
   info: '#00A3E3',
+};
+
+const EVENT_ICON = {
+  dark: DarkIcon,
+  spoofing: SpoofingPositionIcon,
+  detection: UnattributedIcon,
+  sts: StsIcon,
+  ais: LightIcon,
+  sanctions: ZombieShipIcon,
+  ais_sts: AisStsIcon,
 };
 
 function toDate(value) {
@@ -40,30 +57,44 @@ export default function Timeline({ timelineEvents = [] }) {
     <Paper
       p="md"
       radius={8}
-      style={{ background: '#24263C', border: '1px solid #393C56', flex: 1 }}
+      style={{
+        background: '#24263C',
+        border: '1px solid #393C56',
+      }}
     >
-      <Text size="sm" fw={600} c="white" mb="sm">
+      <Text size="16px" fw={600} c="white" mb="sm">
         Activity Feed
       </Text>
 
-      <ScrollArea h={220} scrollbarSize={4}>
-        <Stack gap={0}>
-          {timelineEvents.map((evt, i) => (
-            <Group
-              key={i}
-              gap="sm"
-              py={8}
-              px={4}
-              align="flex-start"
-              wrap="nowrap"
-              style={{
-                borderBottom:
-                  i < timelineEvents.length - 1
-                    ? '1px solid rgba(57,60,86,0.4)'
-                    : 'none',
-              }}
-            >
-              {/* Severity dot */}
+      <Stack gap={0}>
+        {timelineEvents.map((evt, i) => (
+          <Group
+            key={i}
+            gap="sm"
+            py={8}
+            px={4}
+            align="flex-start"
+            wrap="nowrap"
+            style={{
+              borderBottom:
+                i < timelineEvents.length - 1
+                  ? '1px solid rgba(57,60,86,0.4)'
+                  : 'none',
+            }}
+          >
+            {/* Severity dot */}
+            {EVENT_ICON[evt.type] ? (
+              <img
+                src={EVENT_ICON[evt.type]}
+                alt={evt.type}
+                style={{
+                  width: 14,
+                  height: 14,
+                  marginTop: 3,
+                  flexShrink: 0,
+                }}
+              />
+            ) : (
               <Box
                 mt={6}
                 style={{
@@ -74,25 +105,25 @@ export default function Timeline({ timelineEvents = [] }) {
                   flexShrink: 0,
                 }}
               />
+            )}
 
-              {/* Content */}
-              <Box style={{ flex: 1, minWidth: 0 }}>
-                <Group gap={6} mb={2}>
-                  <Text size="xs" c="#888F9E">
-                    {evt.type}
-                  </Text>
-                  <Text size="xs" c="#888F9E">
-                    · {formatTimeAgo(evt.time)}
-                  </Text>
-                </Group>
-                <Text size="sm" c="white" style={{ lineHeight: 1.4 }}>
-                  {evt.description}
+            {/* Content */}
+            <Box style={{ flex: 1, minWidth: 0 }}>
+              <Group gap={6} mb={2}>
+                <Text size="xs" c="#888F9E">
+                  {evt.type}
                 </Text>
-              </Box>
-            </Group>
-          ))}
-        </Stack>
-      </ScrollArea>
+                <Text size="xs" c="#888F9E">
+                  · {formatTimeAgo(evt.time)}
+                </Text>
+              </Group>
+              <Text size="sm" c="white" style={{ lineHeight: 1.4 }}>
+                {evt.description}
+              </Text>
+            </Box>
+          </Group>
+        ))}
+      </Stack>
     </Paper>
   );
 }
